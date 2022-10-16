@@ -3,7 +3,7 @@ name: Deploy via BigWigs Packager
 on:
   push:
     branches:
-      - master
+      - main
     tags:
       - "*"
 
@@ -11,7 +11,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      CF_API_KEY: ${{ secrets.CF_API_KEY }}
+      # CF_API_KEY: ${{ secrets.CF_API_KEY }}
       WAGO_API_KEY: ${{ secrets.WAGO_API_KEY }}
       GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
     steps:

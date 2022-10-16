@@ -3,10 +3,10 @@
 ## Notes: A customizable data broker for displaying player currencies
 ## Author: solocommand
 ## SavedVariables: GoldTrackerSettings
-## Version: 9.2.0
-## X-ReleaseDate: 2022-10-15T15:33:25Z
+## Version: @project-version@
+## X-ReleaseDate: @project-date-iso@
 ## X-License: MIT
-## X-Wago-ID: needs_id
+## X-Wago-ID: Qb6m2qKP
 ## OptionalDeps: Ace3
 
 embeds.xml
