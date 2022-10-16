@@ -11,15 +11,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      # CF_API_KEY: ${{ secrets.CF_API_KEY }}
+      CF_API_KEY: ${{ secrets.CF_API_KEY }}
       WAGO_API_KEY: ${{ secrets.WAGO_API_KEY }}
       GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Check out code
         uses: actions/checkout@v2
-      - name: Install and run Luacheck
-        uses: nebularg/actions-luacheck@v1
-        with:
-          args: "--no-color -q"
       - name: Package and Release
         uses: BigWigsMods/packager@master

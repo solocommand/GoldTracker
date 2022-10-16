@@ -60,7 +60,7 @@ do
   local tooltip = ""
   local dataobj = ldb:NewDataObject("GoldTracker", {
     type = "data source",
-    icon = "Interface\\ICONS\\inv_misc_coin_01",
+    icon = "Interface\\AddOns\\GoldTracker\\GoldTracker",
     text = text,
     OnEnter = function(frame)
       GameTooltip:SetOwner(frame, "ANCHOR_NONE")
