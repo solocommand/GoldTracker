@@ -17,7 +17,7 @@ local function highlight(text)
   return HIGHLIGHT_FONT_COLOR_CODE..text..FONT_COLOR_CODE_CLOSE;
 end
 
-local function GetMoneyString(money)
+local function GetMoneyString(money, textOnly)
 	local goldString, silverString, copperString;
 	local gold = floor(money / (COPPER_PER_SILVER * SILVER_PER_GOLD));
 	local silver = floor((money - (gold * COPPER_PER_SILVER * SILVER_PER_GOLD)) / COPPER_PER_SILVER);
@@ -25,9 +25,15 @@ local function GetMoneyString(money)
   local SILVER_AMOUNT_TEXTURE = "%02d\124TInterface\\MoneyFrame\\UI-SilverIcon:%d:%d:2:0\124t";
   local COPPER_AMOUNT_TEXTURE = "%02d\124TInterface\\MoneyFrame\\UI-CopperIcon:%d:%d:2:0\124t";
 
-  goldString = GOLD_AMOUNT_TEXTURE_STRING:format(FormatLargeNumber(gold), 0, 0);
-  silverString = SILVER_AMOUNT_TEXTURE:format(silver, 0, 0);
-  copperString = COPPER_AMOUNT_TEXTURE:format(copper, 0, 0);
+  if (textOnly) then
+    goldString = ("|cFFFFFF00%s|r%s"):format(FormatLargeNumber(gold), GOLD_AMOUNT_SYMBOL)
+    silverString = ("|cFFCCCCCC%02d|r%s"):format(silver, SILVER_AMOUNT_SYMBOL)
+    copperString = ("|cFFFF6600%02d|r%s"):format(silver, COPPER_AMOUNT_SYMBOL)
+  else
+    goldString = GOLD_AMOUNT_TEXTURE_STRING:format(FormatLargeNumber(gold), 0, 0);
+    silverString = SILVER_AMOUNT_TEXTURE:format(silver, 0, 0);
+    copperString = COPPER_AMOUNT_TEXTURE:format(copper, 0, 0);
+  end
 
 	return goldString.." "..silverString.." "..copperString;
 end
@@ -107,17 +113,24 @@ do
     local copper = GetMoney();
     updateGold(copper);
     if (addon.db.showAll) then copper = getServerGold() end
-    dataobj.text = GetMoneyString(copper, true);
+    dataobj.text = GetMoneyString(copper, false);
   end
 
   function addon:updateTooltip()
     GameTooltip:AddLine(L["GoldTracker"])
     for faction,realms in pairs(addon.db.gold) do
       for realm,characters in pairs(realms) do
-        GameTooltip:AddLine("\n"..highlight(realm.." - "..faction).."\n")
-          for character,copper in pairs(characters) do
+        local total = 0
+        GameTooltip:AddLine(highlight(('\n%s - %s'):format(realm, faction)))
+        local sorted = {}
+        for n in pairs(characters) do table.insert(sorted, n) end
+        table.sort(sorted)
+        for i,character in ipairs(sorted) do
+          local copper = characters[character]
           GameTooltip:AddDoubleLine(character, highlight(GetMoneyString(copper, true)))
+          total = total + copper
         end
+        GameTooltip:AddDoubleLine(highlight(L.total), highlight(GetMoneyString(total, true)))
       end
     end
   end

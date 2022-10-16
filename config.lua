@@ -8,14 +8,6 @@ local function build()
     handler = GoldTracker,
     type = 'group',
     args = {
-      showAll = {
-        type = 'toggle',
-        order = 1,
-        get = function(info) return addon.db[info[#info]] end,
-        set = function(info, value) return addon:setDB(info[#info], value) end,
-        name = L.showAll,
-        desc = L.showAllDescription,
-      },
       showMinimapIcon = {
         type = 'toggle',
         name = L.showMinimapIcon,
@@ -28,6 +20,14 @@ local function build()
           addon:setDB("minimap", config)
           ldbi:Refresh(addonName)
         end,
+      },
+      showAll = {
+        type = 'toggle',
+        order = 1,
+        get = function(info) return addon.db[info[#info]] end,
+        set = function(info, value) return addon:setDB(info[#info], value) end,
+        name = L.showAll,
+        desc = L.showAllDescription,
       },
       characters = {
         type = 'header',
@@ -44,15 +44,15 @@ local function build()
       order = order + 50 * 3
       t.args[header] = { type = 'header', name = header, order = order }
       for character, amt in pairs(characters) do
-        local isDisabled = character == UnitName("player")
-        t.args[character.."_name"] = {
+        local isDisabled = character == UnitName("player") and realm == GetRealmName()
+        t.args[faction..realm..character.."_name"] = {
           type = "description",
           width = "half",
           name = character,
           order = order + 1,
           disabled = isDisabled,
         }
-        t.args[character.."_delete"] = {
+        t.args[faction..realm..character.."_delete"] = {
           type = "execute",
           width = "half",
           func = function(i, v) return addon:clearCharacter(faction, realm, character) end,
@@ -61,7 +61,7 @@ local function build()
           order = order + 2,
           disabled = isDisabled,
         }
-        t.args[character.."_break"] = {
+        t.args[faction..realm..character.."_break"] = {
           type = "description",
           width = "full",
           name = " ",
