@@ -1,0 +1,17 @@
+## Interface: 90200
+## Title: GoldTracker
+## Notes: A customizable data broker for displaying player currencies
+## Author: solocommand
+## SavedVariables: GoldTrackerSettings
+## Version: 9.2.0
+## X-ReleaseDate: 2022-10-15T15:33:25Z
+## X-License: MIT
+## X-Wago-ID: needs_id
+## OptionalDeps: Ace3
+
+embeds.xml
+
+i18n\enUS.lua
+
+GoldTracker.lua
+config.lua
