@@ -1,4 +1,3 @@
-## Interface: 90200
 ## Title: GoldTracker
 ## Notes: A customizable data broker for displaying player currencies
 ## Author: solocommand
@@ -6,8 +5,9 @@
 ## Version: @project-version@
 ## X-ReleaseDate: @project-date-iso@
 ## X-License: MIT
+## X-Curse-Project-ID: 688972
 ## X-Wago-ID: Qb6m2qKP
-## OptionalDeps: Ace3
+## OptionalDeps: Ace3, LibDataBroker-1.1, LibDBIcon-1.0
 
 embeds.xml
 
