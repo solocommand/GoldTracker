@@ -1,3 +1,4 @@
+## Interface: 100000
 ## Title: GoldTracker
 ## Notes: A customizable data broker for displaying player currencies
 ## Author: solocommand
