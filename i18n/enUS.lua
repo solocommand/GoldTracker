@@ -12,5 +12,6 @@ L.showAllDescription = 'Show all gold for the current server/faction in the data
 
 L.deleteCharacter = 'Delete'
 L.deleteCharacterDescription = 'Delete this character\'s stored gold record. It will be restored when logging back in!'
+L.total = 'Total'
 
 addon.L = L
